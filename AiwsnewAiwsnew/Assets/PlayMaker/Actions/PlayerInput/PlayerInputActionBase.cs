@@ -7,25 +7,25 @@ using UnityEngine.InputSystem;
 namespace HutongGames.PlayMaker.Actions
 {
 	[ActionCategory("PlayerInput")]
-    public abstract class PlayerInputActionBase : ComponentAction<PlayerInput>
+    public abstract class PlayerInputActionBase : ComponentAction<UnityEngine.InputSystem.PlayerInput>
     {
         [DisplayOrder(0)]
 		[RequiredField]
-		[CheckForComponent(typeof(PlayerInput))]
+		[CheckForComponent(typeof(UnityEngine.InputSystem.PlayerInput))]
 		[Tooltip("The GameObject with the PlayerInput component.")]
 		public FsmOwnerDefault gameObject;
 
         [DisplayOrder(1)]
         [RequiredField]
-        [ObjectType(typeof(InputActionReference))]
+        [ObjectType(typeof(UnityEngine.InputSystem.InputActionReference))]
         [Tooltip("An InputAction used by the PlayerInput component.")]
         public FsmObject inputAction;
 
-        protected PlayerInput m_playerInput;
-        protected InputAction m_inputAction;
+        protected UnityEngine.InputSystem.PlayerInput m_playerInput;
+        protected UnityEngine.InputSystem.InputAction m_inputAction;
 
-        protected virtual void OnPerformed(InputAction.CallbackContext ctx) { }
-        protected virtual void OnCanceled(InputAction.CallbackContext ctx) { }
+        protected virtual void OnPerformed(UnityEngine.InputSystem.InputAction.CallbackContext ctx) { }
+        protected virtual void OnCanceled(UnityEngine.InputSystem.InputAction.CallbackContext ctx) { }
 
         public override void Reset()
 		{
@@ -41,7 +41,7 @@ namespace HutongGames.PlayMaker.Actions
                 return false;
             }
 
-            var reference = inputAction.Value as InputActionReference;
+            var reference = inputAction.Value as UnityEngine.InputSystem.InputActionReference;
 
             if (reference == null)
             {

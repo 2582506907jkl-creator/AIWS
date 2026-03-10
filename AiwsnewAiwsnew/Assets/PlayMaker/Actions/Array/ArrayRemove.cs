@@ -35,12 +35,14 @@ namespace HutongGames.PlayMaker.Actions
 
 		private void DoRemoveValue ()
 		{
+			if (array == null || value == null) return;
+			
 			value.UpdateValue ();
 
             var list = new List<object>(array.Values);
             if (allMatches.Value)
             {
-                list.RemoveAll(x => x == value.GetValue());
+                list.RemoveAll(x => x == null && value.GetValue() == null || x!= null && x.Equals(value.GetValue()));
             }
             else
             {

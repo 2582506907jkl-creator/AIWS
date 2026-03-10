@@ -19,6 +19,10 @@ namespace HutongGames.PlayMaker.Actions
                  "This will reset FSMs on that GameObject.")]
         public FsmBool allowReactivate;
 
+        // Keep track if we just reactivated
+        // to avoid infinite loops
+        private int activatedFrame = -1;
+
         public override void Reset()
 		{
 			gameObject = null;
@@ -42,14 +46,20 @@ namespace HutongGames.PlayMaker.Actions
 
             foreach (Transform child in parent)
             {
-                if (!allowReactivate.Value && child == goTransform)
-                    continue;
-
-                child.gameObject.SetActive(false);
+	            if (child != goTransform)
+	            {
+		            child.gameObject.SetActive(false);
+	            }
             }
 
+            if (allowReactivate.Value && Time.frameCount != activatedFrame)
+            {
+	            goTransform.gameObject.SetActive(false);
+	            activatedFrame = Time.frameCount;
+            }
+            
             go.SetActive(true);
-        }
+		}
 
 #if UNITY_EDITOR
         public override string AutoName()
