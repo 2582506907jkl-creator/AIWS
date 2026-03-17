@@ -32,8 +32,6 @@ MonoBehaviour:
     - 
     variableCategoryIDs: 
   events:
+  - enter
   - kaiguimen
   - guanguimen
-  - exit
-  - return
-  - enter
