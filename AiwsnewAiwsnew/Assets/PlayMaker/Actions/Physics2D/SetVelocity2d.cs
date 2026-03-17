@@ -55,16 +55,6 @@ namespace HutongGames.PlayMaker.Actions
 			}		
 		}
 		
-		public override void OnUpdate()
-		{
-			DoSetVelocity();
-
-			if (!everyFrame)
-			{
-				Finish();
-			}
-		}
-		
 		public override void OnFixedUpdate()
 		{
 			DoSetVelocity();
@@ -90,20 +80,12 @@ namespace HutongGames.PlayMaker.Actions
             if (vector.IsNone)
             {
                 if (space == Space.World)
-                {   
-					#if UNITY_6000_0_OR_NEWER
-					velocity = rigidbody2d.linearVelocity;
-					#else
-                    velocity = rigidbody2d.velocity;
-					#endif
+                {
+                    velocity = rigidbody2d.linearVelocity;
                 }
                 else
                 {
-					#if UNITY_6000_0_OR_NEWER
-					var localVelocity = cachedTransform.InverseTransformDirection(rigidbody2d.linearVelocity);
-					#else
-                    var localVelocity = cachedTransform.InverseTransformDirection(rigidbody2d.velocity);
-					#endif
+                    var localVelocity = cachedTransform.InverseTransformDirection(rigidbody2d.linearVelocity);
                     velocity.x = localVelocity.x;
                     velocity.y = localVelocity.y;
                 }
@@ -126,12 +108,7 @@ namespace HutongGames.PlayMaker.Actions
                 velocity.Set(v.x, v.y);
             }
 
-		
-			#if UNITY_6000_0_OR_NEWER
-			rigidbody2d.linearVelocity = velocity;
-			#else
-            rigidbody2d.velocity = velocity;
-			#endif
+            rigidbody2d.linearVelocity = velocity;
         }
 	}
 }

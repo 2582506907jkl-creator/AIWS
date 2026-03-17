@@ -42,40 +42,17 @@ namespace HutongGames.PlayMaker.Actions
 			everyFrame = false;
 		}
 		
-		public override void OnPreprocess()
-		{
-			Fsm.HandleFixedUpdate = true;
-		}
-		
 		public override void OnEnter()
 		{
 			DoGetVelocity();
 			
-		    if (!everyFrame)
-		    {
-		        Finish();
-		    }	
+			if (!everyFrame)
+				Finish();		
 		}
-
-		public override void OnUpdate()
-		{
-			DoGetVelocity();
-			
-		    if (!everyFrame)
-		    {
-		        Finish();
-		    }
-		}
-
+		
 		public override void OnFixedUpdate()
 		{
 			DoGetVelocity();
-
-			
-		    if (!everyFrame)
-		    {
-		        Finish();
-		    }
 		}
 		
 		void DoGetVelocity()
@@ -86,11 +63,7 @@ namespace HutongGames.PlayMaker.Actions
                 return;
             }
 			
-			#if UNITY_6000_0_OR_NEWER
 			var velocity = rigidbody2d.linearVelocity;
-			#else
-			var velocity = rigidbody2d.velocity;
-			#endif
 
 		    if (space == Space.Self)
 		    {

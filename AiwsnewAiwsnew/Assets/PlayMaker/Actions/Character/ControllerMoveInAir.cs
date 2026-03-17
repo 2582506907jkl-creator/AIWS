@@ -47,8 +47,7 @@ namespace HutongGames.PlayMaker.Actions
             gravityMultiplier = new FsmFloat {Value = 1f};
             fallMultiplier = new FsmFloat { Value = 1f };
             space = Space.World;
-            landedEvent = null;
-		}
+        }
 
         public override void OnUpdate()
 		{

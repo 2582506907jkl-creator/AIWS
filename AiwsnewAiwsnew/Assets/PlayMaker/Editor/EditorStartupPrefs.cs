@@ -43,9 +43,6 @@ namespace HutongGames.PlayMakerEditor
                         // Note: Save will be called after importing unitypackage
                         // when the WelcomeScreen opens and sets WelcomeScreenVersion
                     }
-
-                    // Newer versions of Unity complain about this:
-                    instance.name = "EditorStartupPrefs";
                 }
                 return instance;
             }

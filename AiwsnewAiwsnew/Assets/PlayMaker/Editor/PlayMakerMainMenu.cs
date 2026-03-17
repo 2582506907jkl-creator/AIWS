@@ -136,11 +136,7 @@ internal static class PlayMakerMainMenu
 	[MenuItem(MenuRoot + "Components/Add PlayMakerGUI to Scene", true)]
 	public static bool ValidateAddPlayMakerGUI()
 	{
-#if UNITY_2022_3_OR_NEWER
-        return Object.FindFirstObjectByType<PlayMakerGUI>() == null;
-#else
-        return Object.FindObjectOfType(typeof(PlayMakerGUI)) as PlayMakerGUI == null;
-#endif
+		return (Object.FindObjectOfType(typeof(PlayMakerGUI)) as PlayMakerGUI) == null;
 	}
 
     [MenuItem(MenuRoot + "Components/Add PlayMakerGUI to Scene", false, iComponents + 1)]
@@ -334,6 +330,17 @@ internal static class PlayMakerMainMenu
     {
         Application.OpenURL("https://hutonggames.fogbugz.com/default.asp?W714");
     }
+
+#if !(UNITY_5 || UNITY_5_0 || UNITY_5_3_OR_NEWER) 
+
+    [MenuItem(addonsRoot + "Windows Phone 8 Addon", false, iAddons + 1)]
+    public static void GetWindowsPhone8Addon()
+    {
+        AssetStore.Open("content/10602");
+    }
+
+#endif
+    
 
     #endregion
 

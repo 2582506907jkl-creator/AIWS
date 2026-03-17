@@ -4,47 +4,48 @@
 
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using HutongGames.PlayMaker;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Callbacks;
 using Debug = UnityEngine.Debug;
+
+#if UNITY_2018_3_OR_NEWER
 using UnityEditor.Build.Reporting;
+#endif
 
 namespace HutongGames.PlayMakerEditor
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class PlayMakerBuildCallbacks
     {
+#if UNITY_2018_3_OR_NEWER    
 
-#if UNITY_2019_3_OR_NEWER
-
-        // For fast play mode in editor
-
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        private static void InitInEditor()
+    public class PlayMakerPreProcessBuild : IPreprocessBuildWithReport
+    {
+        public int callbackOrder { get { return 0; } }
+        
+        public void OnPreprocessBuild(BuildReport report)
         {
-            PlayMakerGlobals.InitInEditor();
-            PlayMakerFSM.InitInEditor();
-            FsmEvent.InitInEditor();
-            FsmLog.InitInEditor();
+            Debug.Log("PlayMakerPreProcessBuild...");
+            ProjectTools.PreprocessPrefabFSMs();
         }
+    }
 
+#elif UNITY_5_6_OR_NEWER
+
+    public class PlayMakerPreProcessBuild : IPreprocessBuild
+    {
+        public int callbackOrder { get { return 0; } }
+        public void OnPreprocessBuild(BuildTarget target, string path)
+        {
+            Debug.Log("PlayMakerPreProcessBuild...");
+            ProjectTools.PreprocessPrefabFSMs();
+        }
+    }
+         
 #endif
 
-        /* See PlayMakerProjectTools 
-        public class PlayMakerPreProcessBuild : IPreprocessBuildWithReport
-        {
-            public int callbackOrder { get { return 0; } }
-            
-            public void OnPreprocessBuild(BuildReport report)
-            {
-                Debug.Log("PlayMakerPreProcessBuild...");
-                ProjectTools.PreprocessPrefabFSMs();
-            }
-        }*/
-    
         [PostProcessScene(2)]
         public static void OnPostProcessScene()
         {

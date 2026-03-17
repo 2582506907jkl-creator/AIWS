@@ -52,11 +52,8 @@ namespace HutongGames.PlayMaker.Actions
             {
                 return;
             }
-			#if UNITY_6000_0_OR_NEWER
+
 			storeResult.Value = rigidbody2d.linearVelocity.magnitude;
-			#else
-			storeResult.Value = rigidbody2d.velocity.magnitude;
-			#endif
 		}
 		
 		

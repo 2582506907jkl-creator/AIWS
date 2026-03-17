@@ -33,7 +33,7 @@ namespace HutongGames.PlayMaker.Actions
 		{
 			gameObject = null;
 			activate = true;
-			recursive = false;
+			recursive = true;
 			resetOnExit = false;
 			everyFrame = false;
 		}

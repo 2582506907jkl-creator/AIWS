@@ -19,7 +19,7 @@ namespace HutongGames.PlayMakerEditor
             DefinesHelper.AddSymbolToAllTargets("PLAYMAKER");
 
             DefinesHelper.AddSymbolToAllTargets("PLAYMAKER_1_9");
-            DefinesHelper.AddSymbolToAllTargets("PLAYMAKER_1_9_9");
+            DefinesHelper.AddSymbolToAllTargets("PLAYMAKER_1_9_1");
             DefinesHelper.AddSymbolToAllTargets("PLAYMAKER_1_8_OR_NEWER");
             DefinesHelper.AddSymbolToAllTargets("PLAYMAKER_1_8_5_OR_NEWER");
             DefinesHelper.AddSymbolToAllTargets("PLAYMAKER_1_9_OR_NEWER");
@@ -36,10 +36,6 @@ namespace HutongGames.PlayMakerEditor
             DefinesHelper.RemoveSymbolFromAllTargets("PLAYMAKER_1_8_8");
             DefinesHelper.RemoveSymbolFromAllTargets("PLAYMAKER_1_8_9");
             DefinesHelper.RemoveSymbolFromAllTargets("PLAYMAKER_1_9_0");
-            DefinesHelper.RemoveSymbolFromAllTargets("PLAYMAKER_1_9_1");
-            DefinesHelper.RemoveSymbolFromAllTargets("PLAYMAKER_1_9_6");
-            DefinesHelper.RemoveSymbolFromAllTargets("PLAYMAKER_1_9_7");
-            DefinesHelper.RemoveSymbolFromAllTargets("PLAYMAKER_1_9_8");
 
             UpdateTextMeshProDefines();
             UpdatePipelineDefines();
@@ -114,36 +110,21 @@ namespace HutongGames.PlayMakerEditor
         /// <returns></returns>
         private static PipelineType GetPipeline()
         {
-#if UNITY_6000_0_OR_NEWER
-            if (GraphicsSettings.defaultRenderPipeline != null)
+#if UNITY_2019_1_OR_NEWER
+        if (GraphicsSettings.defaultRenderPipeline != null)
+        {
+            // SRP
+            var srpType = GraphicsSettings.defaultRenderPipeline.GetType().ToString();
+            if (srpType.Contains("HDRenderPipelineAsset"))
             {
-                // SRP
-                var srpType = GraphicsSettings.defaultRenderPipeline.GetType().ToString();
-                if (srpType.Contains("HDRenderPipelineAsset"))
-                {
-                    return PipelineType.HDPipeline;
-                }
-                else if (srpType.Contains("UniversalRenderPipelineAsset") || srpType.Contains("LightweightRenderPipelineAsset"))
-                {
-                    return PipelineType.UniversalPipeline;
-                }
-                else return PipelineType.Unsupported;
+                return PipelineType.HDPipeline;
             }
-#elif UNITY_2019_1_OR_NEWER
-            if (GraphicsSettings.renderPipelineAsset != null)
+            else if (srpType.Contains("UniversalRenderPipelineAsset") || srpType.Contains("LightweightRenderPipelineAsset"))
             {
-                // SRP
-                var srpType = GraphicsSettings.renderPipelineAsset.GetType().ToString();
-                if (srpType.Contains("HDRenderPipelineAsset"))
-                {
-                    return PipelineType.HDPipeline;
-                }
-                else if (srpType.Contains("UniversalRenderPipelineAsset") || srpType.Contains("LightweightRenderPipelineAsset"))
-                {
-                    return PipelineType.UniversalPipeline;
-                }
-                else return PipelineType.Unsupported;
+                return PipelineType.UniversalPipeline;
             }
+            else return PipelineType.Unsupported;
+        }
 #elif UNITY_2017_1_OR_NEWER
             if (GraphicsSettings.renderPipelineAsset != null)
             {

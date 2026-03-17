@@ -1,5 +1,7 @@
 ﻿// (c) Copyright HutongGames, LLC 2010-2018. All rights reserved.
 
+#if UNITY_5_6_OR_NEWER
+
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -17,11 +19,7 @@ namespace HutongGames.PlayMaker.Actions
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
 		[Tooltip("The time source type")]
-#if UNITY_2022_2_OR_NEWER
 		[ObjectType(typeof(VideoTimeUpdateMode))]
-#else
-		[ObjectType(typeof(VideoTimeSource))]
-#endif
 		public FsmEnum timeSource;
 
 		[Tooltip("Repeat every frame.")]
@@ -60,11 +58,7 @@ namespace HutongGames.PlayMaker.Actions
 		{
 			if (_vp != null)
 			{
-#if UNITY_2022_2_OR_NEWER
 				timeSource.Value = _vp.timeUpdateMode;
-#else
-				timeSource.Value = _vp.timeSource;
-#endif				
 			}
 		}
 			
@@ -78,3 +72,5 @@ namespace HutongGames.PlayMaker.Actions
 		}
 	}
 }
+
+#endif
