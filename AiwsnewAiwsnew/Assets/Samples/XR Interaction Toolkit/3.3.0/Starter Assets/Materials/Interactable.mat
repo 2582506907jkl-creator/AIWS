@@ -38,13 +38,24 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
+<<<<<<< Updated upstream
   m_InvalidKeywords: []
+=======
+  m_InvalidKeywords:
+  - _DISABLE_SSR_TRANSPARENT
+  - _NORMALMAP
+  - _NORMALMAP_TANGENT_SPACE
+>>>>>>> Stashed changes
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
+<<<<<<< Updated upstream
   stringTagMap:
     RenderType: Opaque
+=======
+  stringTagMap: {}
+>>>>>>> Stashed changes
   disabledShaderPasses:
   - MOTIONVECTORS
   m_LockedProperties: 
