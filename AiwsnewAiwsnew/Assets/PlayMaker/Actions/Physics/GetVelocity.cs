@@ -43,6 +43,11 @@ namespace HutongGames.PlayMaker.Actions
 			space = Space.World;
 			everyFrame = false;
 		}
+		
+		public override void OnPreprocess()
+		{
+			Fsm.HandleFixedUpdate = true;
+		}
 
 		public override void OnEnter()
 		{
@@ -54,9 +59,24 @@ namespace HutongGames.PlayMaker.Actions
 		    }		
 		}
 
+		public override void OnUpdate()
+		{
+			DoGetVelocity();
+	
+		    if (!everyFrame)
+		    {
+		        Finish();
+		    }
+		}
+
 		public override void OnFixedUpdate()
 		{
 			DoGetVelocity();
+
+		    if (!everyFrame)
+		    {
+		        Finish();
+		    }
 		}
 
 		void DoGetVelocity()
@@ -67,7 +87,12 @@ namespace HutongGames.PlayMaker.Actions
 		        return;
 		    }
 
+			#if UNITY_6000_0_OR_NEWER
 			var velocity = rigidbody.linearVelocity;
+			#else
+			var velocity = rigidbody.velocity;
+			#endif
+
 		    if (space == Space.Self)
 		    {
 		        velocity = go.transform.InverseTransformDirection(velocity);

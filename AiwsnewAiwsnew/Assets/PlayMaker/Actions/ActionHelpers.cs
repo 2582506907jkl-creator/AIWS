@@ -639,12 +639,23 @@ namespace HutongGames.PlayMaker
             if (rawValue == null) return "null";
             if (rawValue is string) return "\"" + rawValue + "\"";
             if (rawValue is Array) return "Array";
-            if (rawValue.GetType().IsValueType) return rawValue.ToString();
-            var label = rawValue.ToString();
-            var classIndex = label.IndexOf('(');
-            if (classIndex > 0)
-                return label.Substring(0, label.IndexOf('('));
-            return label;
+            
+            // A class might throw an error in ToString() so try/catch
+            // see: https://hutonggames.com/playmakerforum/index.php?topic=24485
+            try
+            {
+                if (rawValue.GetType().IsValueType) return rawValue.ToString();
+                var label = rawValue.ToString();
+                var classIndex = label.IndexOf('(');
+                if (classIndex > 0)
+                    return label.Substring(0, label.IndexOf('('));
+                return label;
+            }
+            catch
+            {
+                return "";
+            }
+
 #else
             return "";
 #endif

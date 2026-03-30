@@ -52,21 +52,31 @@ namespace HutongGames.PlayMakerEditor
         public static string PlayMakerStudentUnitypackage192 = "5397507c2e0c8754aa77587c490e44b2";  
         public static string PlayMakerUnitypackage193 = "c694d774dfdb02a4fb3f67b851678d25";           
         public static string PlayMakerStudentUnitypackage193 = "3b43de08dc660944b98bfa42fe754f8b";   
+        public static string PlayMakerUnitypackage194 = "2cd13ef21e3eb3347bfe52c186e2eec4";           
+        public static string PlayMakerStudentUnitypackage194 = "43a21ae2508161d4fbf16a3acd72eee7";  
+        public static string PlayMakerUnitypackage195 = "0fede577d30b6a840b9197c50d7bfd5b";           
+        public static string PlayMakerStudentUnitypackage195 = "4fad501f687ad0143ac8b714ab036306"; 
+        public static string PlayMakerUnitypackage196 = "368eae1f0540d1e479cef9f883154683";           
+        public static string PlayMakerStudentUnitypackage196 = "0ae77ac19380be04f9f3a7c5193959af";
+        public static string PlayMakerUnitypackage197 = "28b3543a4221f864bb27a40b79746b65";           
+        public static string PlayMakerStudentUnitypackage197 = "e572e79e9b55e844aa09d14d150502c1";
+        public static string PlayMakerUnitypackage198 = "bc59d05a08a00e24a944cfbc8bf2ce5f";           
+        public static string PlayMakerStudentUnitypackage198 = "1097a284faadb8644930018aabdfee2d";
 
         // Latest Install
 
-        public static string PlayMakerUnitypackage194 = "2cd13ef21e3eb3347bfe52c186e2eec4";           
-        public static string PlayMakerStudentUnitypackage194 = "43a21ae2508161d4fbf16a3acd72eee7";   
+        public static string PlayMakerUnitypackage199 = "8847b403f4c1c16468fdf868a07c37c9";           
+        public static string PlayMakerStudentUnitypackage199 = "7ae2d6485032ee54b9ac018609021a07";
 
-        
+
         public static string LatestInstall
         {
-            get { return PlayMakerUnitypackage194; }
+            get { return PlayMakerUnitypackage199; }
         }
 
         public static string LatestStudentInstall
         {
-            get { return PlayMakerStudentUnitypackage194; }
+            get { return PlayMakerStudentUnitypackage199; }
         }
 
         public static bool IsStudentVersionInstall()

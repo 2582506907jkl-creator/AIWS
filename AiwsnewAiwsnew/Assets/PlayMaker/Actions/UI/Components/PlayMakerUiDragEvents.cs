@@ -1,5 +1,9 @@
 ﻿#if !PLAYMAKER_NO_UI
 
+#if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
+#define NEW_INPUT_SYSTEM_ONLY
+#endif
+
 using HutongGames.PlayMaker.Actions;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -20,6 +24,10 @@ namespace HutongGames.PlayMaker
         {
             UiGetLastPointerDataInfo.lastPointerEventData = eventData;
             SendEvent(FsmEvent.UiDrag);
+            
+#if NEW_INPUT_SYSTEM_ONLY
+            SendEvent(FsmEvent.MouseDrag);
+#endif
         }
 
         public void OnEndDrag(PointerEventData eventData)

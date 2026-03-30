@@ -37,6 +37,7 @@ namespace HutongGames.PlayMaker.Actions
 			moveVector = new FsmVector3 {UseVariable = true};
             speed = new FsmFloat {Value = 1};
 			space = Space.World;
+			fallingEvent = null;
 		}
 
 		public override void OnUpdate()
@@ -47,10 +48,16 @@ namespace HutongGames.PlayMaker.Actions
             var move = space == Space.World ? moveVector.Value : cachedTransform.TransformDirection(moveVector.Value);
             controller.SimpleMove(move * speed.Value);
 
-            if (!controller.isGrounded)
+            // controller.isGrounded doesn't work well when walking down slopes or stairs
+            // https://forum.unity.com/threads/charactercontroller-and-walking-down-a-stairs.101859/
+            // So we double check if we're really falling using a raycast down.
+            // We use the controller stepOffset as the ray distance. 
+            // If the ray hits something we assume we're just stepping down and not really falling.
+            if (!controller.isGrounded && // Note: raycast is only called if isGrounded is false 
+                !Physics.Raycast(cachedTransform.position, Vector3.down, controller.stepOffset))
             {
                 Fsm.Event(fallingEvent);
             }
 		}
-	}
+    }
 }

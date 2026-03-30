@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 namespace HutongGames.PlayMaker.Actions
 {
 	[ActionCategory("PlayerInput")]
-    public abstract class PlayerInputUpdateActionBase: ComponentAction<PlayerInput>
+    public abstract class PlayerInputUpdateActionBase: ComponentAction<UnityEngine.InputSystem.PlayerInput>
 	{
         public enum UpdateMode
         {
@@ -17,21 +17,21 @@ namespace HutongGames.PlayMaker.Actions
 
         [DisplayOrder(0)]
 		[RequiredField]
-		[CheckForComponent(typeof(PlayerInput))]
+		[CheckForComponent(typeof(UnityEngine.InputSystem.PlayerInput))]
 		[Tooltip("The GameObject with the PlayerInput component.")]
 		public FsmOwnerDefault gameObject;
 
         [DisplayOrder(1)]
         [RequiredField]
-        [ObjectType(typeof(InputActionReference))]
+        [ObjectType(typeof(UnityEngine.InputSystem.InputActionReference))]
         [Tooltip("An InputAction used by the PlayerInput component.")]
         public FsmObject inputAction;
 
         [Tooltip("When to read the Input.")]
         public UpdateMode updateMode;
 
-        protected PlayerInput playerInput;
-        protected InputAction action;
+        protected UnityEngine.InputSystem.PlayerInput playerInput;
+        protected UnityEngine.InputSystem.InputAction action;
 
         public override void Reset()
 		{
@@ -43,7 +43,10 @@ namespace HutongGames.PlayMaker.Actions
 
         public override void OnPreprocess()
         {
-            Fsm.HandleFixedUpdate = updateMode == UpdateMode.FixedUpdate;
+            if (updateMode == UpdateMode.FixedUpdate)
+            {
+                Fsm.HandleFixedUpdate = true;
+            }
         }
 
         protected bool UpdateCache()
@@ -53,7 +56,7 @@ namespace HutongGames.PlayMaker.Actions
                 return false;
             }
 
-            var reference = inputAction.Value as InputActionReference;
+            var reference = inputAction.Value as UnityEngine.InputSystem.InputActionReference;
             if (reference == null)
             {
                 return false;
