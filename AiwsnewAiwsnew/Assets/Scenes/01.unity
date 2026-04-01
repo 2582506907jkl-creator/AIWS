@@ -23940,6 +23940,34 @@ PrefabInstance:
       propertyPath: sharedProfile
       value: 
       objectReference: {fileID: 1863213823}
+    - target: {fileID: 318252778605436946, guid: 90a6cf380b1911a44bb46c55c7366656, type: 3}
+      propertyPath: m_Intensity
+      value: 580.907
+      objectReference: {fileID: 0}
+    - target: {fileID: 2892184119312883784, guid: 90a6cf380b1911a44bb46c55c7366656, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3187123175292409039, guid: 90a6cf380b1911a44bb46c55c7366656, type: 3}
+      propertyPath: m_Intensity
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3187123175292409039, guid: 90a6cf380b1911a44bb46c55c7366656, type: 3}
+      propertyPath: m_ColorTemperature
+      value: 12753
+      objectReference: {fileID: 0}
+    - target: {fileID: 3899795354447748706, guid: 90a6cf380b1911a44bb46c55c7366656, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3966761598159684439, guid: 90a6cf380b1911a44bb46c55c7366656, type: 3}
+      propertyPath: m_Intensity
+      value: 567.10345
+      objectReference: {fileID: 0}
+    - target: {fileID: 5358916492571254401, guid: 90a6cf380b1911a44bb46c55c7366656, type: 3}
+      propertyPath: m_Intensity
+      value: 17
+      objectReference: {fileID: 0}
     - target: {fileID: 7069949205320877782, guid: 90a6cf380b1911a44bb46c55c7366656, type: 3}
       propertyPath: m_Name
       value: Light
@@ -23983,6 +24011,14 @@ PrefabInstance:
     - target: {fileID: 7107737462695776549, guid: 90a6cf380b1911a44bb46c55c7366656, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7661407062010553321, guid: 90a6cf380b1911a44bb46c55c7366656, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8717030665752952882, guid: 90a6cf380b1911a44bb46c55c7366656, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
