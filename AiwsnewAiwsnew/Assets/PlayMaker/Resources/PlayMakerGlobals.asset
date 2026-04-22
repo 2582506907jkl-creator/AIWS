@@ -13,9 +13,21 @@ MonoBehaviour:
   m_Name: PlayMakerGlobals
   m_EditorClassIdentifier: PlayMaker.dll::PlayMakerGlobals
   variables:
-    floatVariables: []
+    floatVariables:
+    - useVariable: 1
+      name: small
+      tooltip: 
+      showInInspector: 0
+      networkSync: 0
+      value: 0
     intVariables: []
-    boolVariables: []
+    boolVariables:
+    - useVariable: 1
+      name: roomenough
+      tooltip: 
+      showInInspector: 0
+      networkSync: 0
+      value: 0
     stringVariables: []
     vector2Variables: []
     vector3Variables:
@@ -36,7 +48,7 @@ MonoBehaviour:
     enumVariables: []
     categories:
     - 
-    variableCategoryIDs: 00000000
+    variableCategoryIDs: 000000000000000000000000
   events:
   - enter
   - kaiguimen
@@ -46,3 +58,6 @@ MonoBehaviour:
   - on text 4
   - act text 10
   - finishenter01
+  - fangda_chufa
+  - bianda
+  - bianxiao
