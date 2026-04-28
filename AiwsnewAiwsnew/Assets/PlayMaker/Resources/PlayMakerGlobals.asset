@@ -118,3 +118,4 @@ MonoBehaviour:
   - destroy bookopen
   - destroy bookclose
   - give mama
+  - text 8 to 9
