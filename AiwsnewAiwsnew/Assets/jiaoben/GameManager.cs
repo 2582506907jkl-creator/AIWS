@@ -2,49 +2,99 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // 使用单例模式，让其他脚本可以方便地访问这个管理器
     public static GameManager Instance;
 
-    // 当前玩家已经收集的物品数量
-    [HideInInspector] public int currentItemCount = 0;
+    // 阶段管理
+    [HideInInspector] public int currentPhase = 0; // 0:初始, 1:家长2出现, 2:家长3出现
 
-    // 你设定好的触发条件：第一阶段需要3个物品，第二阶段再需要3个
+    // 第一阶段：拾取物品计数（由 PickupItem 增加）
     public int itemsRequiredForPhase1 = 3;
-    public int itemsRequiredForPhase2 = 6; // 累计数量
+    private int currentItemCount = 0;
 
-    // 当前游戏处于哪个阶段（0:未开始, 1:已触发角色1, 2:已触发角色2）
-    [HideInInspector] public int currentPhase = 0;
+    // 第二阶段：放置物品计数（三种不同物品，各放一次）
+    private bool diaryPlaced = false;
+    private bool medicinePlaced = false;
+    private bool photoPlaced = false;
+    private int totalPlaced => (diaryPlaced ? 1 : 0) + (medicinePlaced ? 1 : 0) + (photoPlaced ? 1 : 0);
 
     private void Awake()
     {
-        // 单例模式初始化，确保场景中只有一个GameManager
         if (Instance == null)
+        {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         else
+        {
             Destroy(gameObject);
-
-        DontDestroyOnLoad(gameObject); // 切换场景时不销毁
+        }
     }
 
-    // 当玩家捡起一个物品时，调用这个方法来增加计数并检查进度
+    // 拾取物品时调用（由 PickupItem 脚本调用）
     public void AddItem()
     {
-        currentItemCount++;
-        Debug.Log($"物品已收集: {currentItemCount}");
+        if (currentPhase != 0) return; // 只在第一阶段需要拾取
 
-        // 触发角色2消失和角色3出现的条件
-        if (currentItemCount == itemsRequiredForPhase2)
+        currentItemCount++;
+        Debug.Log($"拾取物品: {currentItemCount} / {itemsRequiredForPhase1}");
+
+        if (currentItemCount >= itemsRequiredForPhase1)
         {
-            // 注意：角色2的消失和角色3的出现，将在角色1的区域触发逻辑里处理。
-            // 这里只记录阶段，不直接操作角色。
-            currentPhase = 2;
-            Debug.Log("收集满6个物品，已解锁第三阶段。");
-        }
-        // 触发角色1消失和角色2出现的条件
-        else if (currentItemCount == itemsRequiredForPhase1 && currentPhase == 0)
-        {
+            // 触发第二阶段：家长2出现
             currentPhase = 1;
-            Debug.Log("收集满3个物品，已解锁第二阶段。");
+            Debug.Log("拾取满3个，家长2出现！");
         }
+    }
+
+    // 放置物品时调用（由各个放置触发器调用）
+    public void TryPlaceItem(string itemType)
+    {
+        if (currentPhase != 1)
+        {
+            Debug.Log("当前不是放置阶段，无法放置");
+            return;
+        }
+
+        bool alreadyPlaced = false;
+        switch (itemType)
+        {
+            case "Diary":
+                if (diaryPlaced) alreadyPlaced = true;
+                else diaryPlaced = true;
+                break;
+            case "Medicine":
+                if (medicinePlaced) alreadyPlaced = true;
+                else medicinePlaced = true;
+                break;
+            case "Photo":
+                if (photoPlaced) alreadyPlaced = true;
+                else photoPlaced = true;
+                break;
+            default:
+                Debug.LogWarning("未知物品类型: " + itemType);
+                return;
+        }
+
+        if (alreadyPlaced)
+        {
+            Debug.Log($"已经放置过 {itemType} 了，不能重复放置");
+            return;
+        }
+
+        Debug.Log($"成功放置 {itemType}，当前总放置数: {totalPlaced} / 3");
+
+        if (totalPlaced == 3)
+        {
+            currentPhase = 2;
+            Debug.Log("所有物品放置完毕，家长3出现！");
+        }
+    }
+
+    // 可选：供外部查询放置状态
+    public bool IsPhaseComplete(int phase)
+    {
+        if (phase == 1) return currentItemCount >= itemsRequiredForPhase1;
+        if (phase == 2) return totalPlaced == 3;
+        return false;
     }
 }
