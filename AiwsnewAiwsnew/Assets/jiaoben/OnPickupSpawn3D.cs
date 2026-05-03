@@ -1,25 +1,41 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using System.Collections;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 [RequireComponent(typeof(XRGrabInteractable))]
 public class PickupSwitchTo3D : MonoBehaviour
 {
-    public GameObject target3D; // ÔÚInspectorÖĞÍÏÈë³¡¾°ÖĞµÄ3DÎïÌå
+    public GameObject target3D;   // æ‹–å…¥åœºæ™¯ä¸­å·²ç»æ‘†æ”¾å¥½çš„3Dç‰©ä½“ï¼ˆåˆå§‹æœªæ¿€æ´»ï¼‰
 
-    private void Start()
+    private XRGrabInteractable grabInteractable;
+
+    private void Awake()
     {
-        XRGrabInteractable grab = GetComponent<XRGrabInteractable>();
-        grab.selectEntered.AddListener(OnGrabbed);
+        grabInteractable = GetComponent<XRGrabInteractable>();
+        if (grabInteractable != null)
+            grabInteractable.selectEntered.AddListener(OnGrabbed);
     }
 
     private void OnGrabbed(SelectEnterEventArgs args)
     {
-        // Òş²Ø×Ô¼º£¨2DÎïÌå£©
-        gameObject.SetActive(false);
+        StartCoroutine(DelayedSwitch());
+    }
 
-        // ÏÔÊ¾3DÎïÌå
+    private IEnumerator DelayedSwitch()
+    {
+        yield return null; // ç­‰å¾…ä¸€å¸§
+
         if (target3D != null)
-            target3D.SetActive(true);
+        {
+            target3D.SetActive(true);   // æ˜¾ç¤º3Dç‰©ä½“
+            Debug.Log("3Dç‰©ä½“å·²æ˜¾ç¤º: " + target3D.name);
+        }
+        else
+        {
+            Debug.LogError("target3D æœªåœ¨Inspectorä¸­æŒ‡å®šï¼");
+        }
+
+        gameObject.SetActive(false);    // éšè—2Då›¾ç‰‡
     }
 }
