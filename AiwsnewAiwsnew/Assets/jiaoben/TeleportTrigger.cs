@@ -1,92 +1,50 @@
-using UnityEngine;
-using UnityEngine.UI;          // ¡û ±ØĞëÌí¼Ó£¬·ñÔò Image ÀàĞÍÎŞ·¨Ê¶±ğ
+ï»¿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class TeleportTrigger : MonoBehaviour
+public class LevelChanger : MonoBehaviour
 {
-    [Header("Ä¿±ê³¡¾°")]
-    public string targetSceneName = "Level3";
-
-    [Header("ºÚÆÁ¹ı¶ÉÉèÖÃ")]
-    public float fadeDuration = 1.0f;
-
-    [Header("ÒıÓÃ£¨¿ÉÑ¡£¬²»ÌîÔò×Ô¶¯²éÕÒ£©")]
-    public Image fadeImage;
-
-    private bool isTriggered = false;
-
-    private void Start()
-    {
-        if (fadeImage == null)
-        {
-            Canvas canvas = FindObjectOfType<Canvas>();
-            if (canvas != null)
-                fadeImage = canvas.GetComponentInChildren<Image>();
-        }
-
-        if (fadeImage == null)
-            Debug.LogWarning("Ã»ÓĞÕÒµ½ºÚÆÁImage×é¼ş£¬ÇëÊÖ¶¯Ö¸¶¨»òÈ·±£CanvasÏÂÓĞImage");
-
-        // È·±£³õÊ¼ÍêÈ«Í¸Ã÷
-        if (fadeImage != null)
-        {
-            Color c = fadeImage.color;
-            c.a = 0f;
-            fadeImage.color = c;
-        }
-    }
+    [Header("åœºæ™¯è·³è½¬è®¾ç½®")]
+    public string targetSceneName;
+    public bool loadAsync = true;
+    public GameObject loadingScreen;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (isTriggered) return;
-        if (!other.CompareTag("Player")) return;
-
-        isTriggered = true;
-        StartCoroutine(TeleportSequence());
-    }
-
-    private IEnumerator TeleportSequence()
-    {
-        // µ­ÈëºÚÆÁ
-        yield return StartCoroutine(Fade(fadeDuration, 0f, 1f));
-
-        yield return new WaitForSeconds(0.2f);
-
-        // ¼ÓÔØ³¡¾°
-        if (!string.IsNullOrEmpty(targetSceneName))
+        // åªé€šè¿‡ Tag æ¥åˆ¤æ–­æ˜¯å¦ä¸ºç©å®¶ï¼Œä¸å†éœ€è¦ XROrigin ç»„ä»¶ï¼Œä¹Ÿæ— éœ€æ·»åŠ å‘½åç©ºé—´
+        if (other.CompareTag("Player"))
         {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(targetSceneName);
-            asyncLoad.allowSceneActivation = true;
-            while (!asyncLoad.isDone)
-                yield return null;
-        }
-        else
-        {
-            Debug.LogError("Ä¿±ê³¡¾°Ãû³ÆÎª¿Õ£¬ÎŞ·¨´«ËÍ£¡");
+            Debug.Log($"[LevelChanger] âœ… æ£€æµ‹åˆ°ç©å®¶ï¼ˆé€šè¿‡Tagè¯†åˆ«ï¼‰ï¼å¼€å§‹è·³è½¬åˆ°åœºæ™¯ï¼š{targetSceneName}");
+
+            if (loadAsync)
+                StartCoroutine(LoadSceneAsyncCoroutine());
+            else
+                SceneManager.LoadScene(targetSceneName);
         }
     }
 
-    private IEnumerator Fade(float time, float startAlpha, float targetAlpha)
+    private IEnumerator LoadSceneAsyncCoroutine()
     {
-        if (fadeImage == null) yield break;
+        if (loadingScreen != null)
+            loadingScreen.SetActive(true);
 
-        float elapsed = 0f;
-        Color color = fadeImage.color;
-        color.a = startAlpha;
-        fadeImage.color = color;
-
-        while (elapsed < time)
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(targetSceneName);
+        if (asyncLoad == null)
         {
-            elapsed += Time.deltaTime;
-            float t = elapsed / time;
-            float newAlpha = Mathf.Lerp(startAlpha, targetAlpha, t);
-            color.a = newAlpha;
-            fadeImage.color = color;
+            Debug.LogError($"[LevelChanger] âŒ æ— æ³•åŠ è½½åœºæ™¯ï¼š{targetSceneName}ï¼Œè¯·æ£€æŸ¥ Build Settings ä¸­æ˜¯å¦æ·»åŠ äº†è¯¥åœºæ™¯ã€‚");
+            yield break;
+        }
+
+        asyncLoad.allowSceneActivation = false;
+
+        while (asyncLoad.progress < 0.9f)
+        {
+            Debug.Log($"[LevelChanger] åŠ è½½è¿›åº¦ï¼š{asyncLoad.progress * 100:F1}%");
             yield return null;
         }
 
-        color.a = targetAlpha;
-        fadeImage.color = color;
+        Debug.Log("[LevelChanger] åœºæ™¯èµ„æºå·²å°±ç»ªï¼Œå³å°†åˆ‡æ¢...");
+        yield return new WaitForSeconds(0.5f); // ä¸€ä¸ªçŸ­æš‚å»¶æ—¶ï¼Œç¡®ä¿åŠ è½½ç•Œé¢ç¨³å®šæ˜¾ç¤º
+        asyncLoad.allowSceneActivation = true;
     }
 }
