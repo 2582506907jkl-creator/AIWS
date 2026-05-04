@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/VR-kaitou.unity
+    guid: 54782a7e595726d4d99abc6fae05b4ba
+  - enabled: 1
     path: Assets/Scenes/01.unity
     guid: ee35652ae9317024b80f8148c007f26a
   - enabled: 1
