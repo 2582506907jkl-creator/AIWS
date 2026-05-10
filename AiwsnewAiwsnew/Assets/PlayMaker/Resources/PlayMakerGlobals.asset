@@ -32,13 +32,7 @@ MonoBehaviour:
       showInInspector: 0
       networkSync: 0
       value: 0
-    intVariables:
-    - useVariable: 1
-      name: shoujiwanshengy number
-      tooltip: 
-      showInInspector: 0
-      networkSync: 0
-      value: 0
+    intVariables: []
     boolVariables:
     - useVariable: 1
       name: roomenough
@@ -108,7 +102,7 @@ MonoBehaviour:
     enumVariables: []
     categories:
     - 
-    variableCategoryIDs: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    variableCategoryIDs: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   events:
   - enter
   - kaiguimen
@@ -137,7 +131,3 @@ MonoBehaviour:
   - 2 text 24
   - give mama yaoping
   - give mama zhaopian
-  - shoujiwanshengyin
-  - entermusic3
-  - destoryjiazhang1
-  - xiaohui1
