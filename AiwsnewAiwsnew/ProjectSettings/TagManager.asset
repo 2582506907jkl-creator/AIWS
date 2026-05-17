@@ -7,6 +7,9 @@ TagManager:
   - Anchor
   - PlaceableItem
   - Interactable
+  - 3 diary
+  - 3 yaoping
+  - 3 zhaopian
   layers:
   - Default
   - TransparentFX
