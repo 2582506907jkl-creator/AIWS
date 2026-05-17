@@ -3644,7 +3644,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &279064965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15037,6 +15037,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 839818277}
   m_CullTransparentMesh: 1
+--- !u!64 &848244097
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1855153774}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3622217972167161571, guid: 98e01a97cf3ea9844869b5197eb436b2, type: 3}
 --- !u!1 &859506814
 GameObject:
   m_ObjectHideFlags: 0
@@ -22020,27 +22042,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 170405429609113863, guid: 98e01a97cf3ea9844869b5197eb436b2, type: 3}
---- !u!65 &1274679887
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1855153774}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0039279554, y: 0.013203938, z: 0.014705262}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1276782737
 GameObject:
   m_ObjectHideFlags: 0
@@ -28815,13 +28816,13 @@ PrefabInstance:
       addedObject: {fileID: 596027595}
     - targetCorrespondingSourceObject: {fileID: 3921074972761723005, guid: 98e01a97cf3ea9844869b5197eb436b2, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 848244097}
+    - targetCorrespondingSourceObject: {fileID: 3921074972761723005, guid: 98e01a97cf3ea9844869b5197eb436b2, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 400499991}
     - targetCorrespondingSourceObject: {fileID: 3921074972761723005, guid: 98e01a97cf3ea9844869b5197eb436b2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 400499990}
-    - targetCorrespondingSourceObject: {fileID: 3921074972761723005, guid: 98e01a97cf3ea9844869b5197eb436b2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1274679887}
     - targetCorrespondingSourceObject: {fileID: 5682284415925488789, guid: 98e01a97cf3ea9844869b5197eb436b2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1350897253}
@@ -29848,7 +29849,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2012281386
 RectTransform:
   m_ObjectHideFlags: 0
